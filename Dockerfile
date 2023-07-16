@@ -1,5 +1,5 @@
 FROM nginx
 
-WORKDIR /urs/share/nginx/html
+WORKDIR /usr/share/nginx/html
 
 COPY . .
