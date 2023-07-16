@@ -1,0 +1,32 @@
+version: '3'
+services:
+  mysql_db:
+    image: mysql # lấy từ hub.docker
+    container_name: mysql_db
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_db:/var/lib/mysql
+    networks:
+      - node-network
+  app: 
+    depends_on:
+      - mysql_db
+    build: .
+    container_name: cons-node
+    environment:
+      - DATABASE_URL=mysql://root:1234@mysql_db:3306/db_food?schema=public
+    ports:
+      - 3002:8080
+    networks:
+      - node-network
+
+volumes:
+  mysql_db:
+    driver: local
+networks:
+  node-network:
+
+# docket-compose up -d

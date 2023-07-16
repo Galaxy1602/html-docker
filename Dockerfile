@@ -1,12 +1,20 @@
-# :3000
-# npm run build
+FROM node:16    
 
-FROM nginx
+WORKDIR /usr/src/app
 
-WORkDIR /usr/share/nginx/html
+COPY package*.json .
+
+RUN yarn install --legacy-peer-deps
+
+COPY prisma ./prisma/
+
+RUN yarn prisma generate
 
 COPY . .
 
-# docker build . -t img-react
+#private port sẽ chạy
+EXPOSE 8080
 
-# docker run -d -p 3001:80 --name cons-react img-react
+# node index.js => khởi chạy server
+
+CMD ["node","index.js"]
