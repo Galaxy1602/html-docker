@@ -109,6 +109,11 @@ app.get("/get-food", async (req, res) => {
   res.send(data);
 });
 
+app.get("/get-user", async (req, res) => {
+  let data = await prisma.user.findMany();
+
+  res.send(data);
+});
 app.post("/create-food", async (req, res) => {
   let { food_id } = req.params; // string
   let { food_name, image, price, desc, type_id, color } = req.body; // ** phải đúng kiểu dữ liệu được khai báo bên shcema
